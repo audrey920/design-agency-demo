@@ -1,9 +1,681 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=about.html" />
-  <title>DesignAgency</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DesignAgency — 打造令人驚艷的數位品牌體驗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:           #020617;
+      --color-surface:      #0f172a;
+      --color-elevated:     #1e293b;
+      --color-text-base:    #f8fafc;
+      --color-text-subtle:  #94a3b8;
+      --color-text-muted:   #64748b;
+      --color-accent:       #0de7f2;
+      --color-blue:         #3b82f6;
+      --color-blue-light:   #60a5fa;
+      --radius-sm:   0.25rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-full: 9999px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text-base);
+      line-height: 1.6;
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between; height: 4rem;
+    }
+    .nav-logo {
+      font-size: 1.125rem; font-weight: 700;
+      color: var(--color-text-base); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--color-accent); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.875rem; color: var(--color-text-subtle);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--color-text-base); }
+
+    .btn-primary {
+      background: var(--color-accent); color: var(--color-bg);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem; font-weight: 600;
+      padding: 0.625rem 1.25rem; border-radius: var(--radius-md);
+      text-decoration: none; border: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      display: inline-flex; align-items: center; gap: 0.375rem;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: transparent; color: var(--color-text-subtle);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem; font-weight: 500;
+      padding: 0.625rem 1.25rem; border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.1); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--color-text-base); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 7rem 0 5rem; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(59,130,246,0.08) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse, rgba(13,231,242,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 800px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-size: 0.75rem; font-weight: 600; color: var(--color-accent);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(13,231,242,0.08); border: 1px solid rgba(13,231,242,0.2);
+      padding: 0.375rem 0.875rem; border-radius: var(--radius-full);
+      margin-bottom: 2rem;
+    }
+    .hero-title-row {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 2rem; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem); font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.03em;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-blue-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-cta-inline {
+      flex-shrink: 0; padding-top: 0.625rem;
+    }
+    .hero p {
+      font-size: 1.125rem; color: var(--color-text-subtle);
+      max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+
+    /* ── Section commons ── */
+    section { padding: 5rem 0; }
+    .section-divider { border-top: 1px solid rgba(255,255,255,0.04); }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.875rem;
+    }
+    .section-title {
+      font-size: clamp(1.875rem, 3.5vw, 2.75rem); font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.15;
+    }
+    .section-desc {
+      font-size: 1rem; color: var(--color-text-subtle);
+      max-width: 520px; line-height: 1.75; margin-bottom: 3rem;
+    }
+    .section-header-row {
+      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    }
+    .service-card { padding: 2rem; transition: transform 0.2s; }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-icon {
+      width: 3rem; height: 3rem;
+      background: rgba(13,231,242,0.07); border: 1px solid rgba(13,231,242,0.12);
+      border-radius: var(--radius-md); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 1.25rem;
+    }
+    .service-icon .material-symbols-outlined { font-size: 1.375rem; color: var(--color-accent); }
+    .service-card h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.625rem; letter-spacing: -0.01em; }
+    .service-card p { font-size: 0.875rem; color: var(--color-text-subtle); line-height: 1.7; margin-bottom: 1.25rem; }
+    .learn-more {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.875rem; font-weight: 500; color: var(--color-accent);
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .learn-more:hover { gap: 0.5rem; }
+    .learn-more .material-symbols-outlined { font-size: 1rem; }
+
+    /* ── Portfolio ── */
+    .portfolio-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .portfolio-card { overflow: hidden; transition: transform 0.2s; }
+    .portfolio-card:hover { transform: translateY(-4px); }
+    .portfolio-thumb {
+      height: 220px; position: relative; overflow: hidden;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .portfolio-thumb-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; font-weight: 700; letter-spacing: -0.04em;
+      opacity: 0.15; user-select: none;
+    }
+    .portfolio-thumb-glow {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(59,130,246,0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .portfolio-thumb-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: rgba(13,231,242,0.1); border: 1px solid rgba(13,231,242,0.2);
+      color: var(--color-accent); font-size: 0.75rem; font-weight: 600;
+      padding: 0.25rem 0.75rem; border-radius: var(--radius-full);
+    }
+    .portfolio-body { padding: 1.5rem; }
+    .portfolio-body h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .portfolio-body p { font-size: 0.875rem; color: var(--color-text-subtle); line-height: 1.6; margin-bottom: 1rem; }
+    .portfolio-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+    .ptag {
+      font-size: 0.75rem; color: var(--color-text-muted);
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      padding: 0.25rem 0.625rem; border-radius: var(--radius-full);
+    }
+
+    /* ── Testimonials ── */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .testimonial-card { padding: 2rem; }
+    .stars { display: flex; gap: 0.25rem; margin-bottom: 1.25rem; }
+    .star { color: var(--color-accent); font-size: 0.875rem; }
+    .testimonial-card blockquote {
+      font-size: 0.9375rem; color: var(--color-text-subtle);
+      line-height: 1.75; margin-bottom: 1.5rem; font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 0.875rem; }
+    .author-avatar {
+      width: 2.5rem; height: 2.5rem; border-radius: var(--radius-full);
+      background: linear-gradient(135deg, rgba(13,231,242,0.2), rgba(59,130,246,0.2));
+      border: 1px solid rgba(13,231,242,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; font-weight: 700; color: var(--color-accent); flex-shrink: 0;
+    }
+    .author-name { font-size: 0.9375rem; font-weight: 600; }
+    .author-role { font-size: 0.8125rem; color: var(--color-text-muted); }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item {
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; background: rgba(15,23,42,0.5);
+      border: none; cursor: pointer; padding: 1.375rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 500; color: var(--color-text-base);
+      text-align: left; transition: background 0.2s;
+    }
+    .faq-question:hover { background: rgba(15,23,42,0.8); }
+    .faq-question .material-symbols-outlined {
+      font-size: 1.25rem; color: var(--color-text-muted);
+      flex-shrink: 0; transition: transform 0.25s;
+    }
+    .faq-item.open .faq-question { background: rgba(13,231,242,0.04); }
+    .faq-item.open .faq-question .material-symbols-outlined { transform: rotate(45deg); color: var(--color-accent); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      font-size: 0.9375rem; color: var(--color-text-subtle); line-height: 1.75;
+      padding: 0 1.5rem;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding: 0 1.5rem 1.375rem; }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      margin: 0 0 5rem;
+      padding: 4rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(59,130,246,0.08) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none;
+    }
+    .cta-banner-glow {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse, rgba(13,231,242,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner h2 {
+      position: relative; font-size: clamp(1.875rem, 4vw, 3rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.15;
+    }
+    .cta-banner h2 .highlight {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-blue-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .cta-banner p {
+      position: relative; font-size: 1rem; color: var(--color-text-subtle);
+      max-width: 480px; margin: 0 auto 2rem; line-height: 1.75;
+    }
+    .cta-buttons { position: relative; display: flex; gap: 1rem; justify-content: center; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid rgba(255,255,255,0.04); padding: 2.5rem 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-size: 1rem; font-weight: 700; color: var(--color-text-base); text-decoration: none; }
+    .footer-logo span { color: var(--color-accent); }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a { font-size: 0.8125rem; color: var(--color-text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--color-text-base); }
+    .footer-copy { font-size: 0.8125rem; color: var(--color-text-muted); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+    }
+    @media (max-width: 768px) {
+      .hero-title-row { flex-direction: column; gap: 1.25rem; }
+      .hero-cta-inline { padding-top: 0; }
+      .section-header-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
 </head>
-<body></body>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">Design<span>.</span></a>
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn-primary">
+          <span class="material-symbols-outlined" style="font-size:1rem;">mail</span>
+          Get Started
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="material-symbols-outlined" style="font-size:0.875rem;">auto_awesome</span>
+          Claude Code + Stitch 2.0 Demo
+        </div>
+        <div class="hero-title-row">
+          <h1>我們幫你打造<br /><span class="highlight">令人驚艷的數位體驗</span></h1>
+          <div class="hero-cta-inline">
+            <a href="contact.html" class="btn-primary">
+              <span class="material-symbols-outlined" style="font-size:1rem;">connect_without_contact</span>
+              聯絡我們
+            </a>
+          </div>
+        </div>
+        <p>從品牌識別到全端開發，DesignAgency 提供端到端的數位設計服務，讓你的品牌在競爭中真正脫穎而出。</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-ghost">
+            探索服務
+            <span class="material-symbols-outlined" style="font-size:1rem;">arrow_downward</span>
+          </a>
+          <a href="about.html" class="btn-ghost">關於我們</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section-divider">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <div class="section-label">Services</div>
+          <h2 class="section-title">我們提供的服務</h2>
+          <p class="section-desc" style="margin-bottom:0;">從視覺設計到技術實作，一站式滿足你的數位品牌需求。</p>
+        </div>
+        <a href="contact.html" class="btn-ghost">
+          取得報價 <span class="material-symbols-outlined" style="font-size:1rem;">arrow_forward</span>
+        </a>
+      </div>
+      <div class="services-grid">
+        <div class="glass-card service-card">
+          <div class="service-icon"><span class="material-symbols-outlined">layers</span></div>
+          <h3>UI/UX 設計</h3>
+          <p>以用戶為中心的介面設計，結合視覺美學與易用性，打造直覺流暢的使用體驗。</p>
+          <a href="contact.html" class="learn-more">了解更多 <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        <div class="glass-card service-card">
+          <div class="service-icon"><span class="material-symbols-outlined">terminal</span></div>
+          <h3>全棧開發</h3>
+          <p>前後端完整開發能力，從 React、Next.js 到 API 串接，確保設計稿完美落地。</p>
+          <a href="contact.html" class="learn-more">了解更多 <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        <div class="glass-card service-card">
+          <div class="service-icon"><span class="material-symbols-outlined">search_insights</span></div>
+          <h3>SEO 優化</h3>
+          <p>從技術 SEO 到內容策略，系統性提升搜尋排名，為網站帶來持續的自然流量。</p>
+          <a href="contact.html" class="learn-more">了解更多 <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        <div class="glass-card service-card">
+          <div class="service-icon"><span class="material-symbols-outlined">speed</span></div>
+          <h3>效能優化</h3>
+          <p>Core Web Vitals 調校、圖片壓縮、程式碼分割，讓網站在每個裝置都快如閃電。</p>
+          <a href="contact.html" class="learn-more">了解更多 <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="section-divider">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <div class="section-label">Portfolio</div>
+          <h2 class="section-title">精選作品</h2>
+          <p class="section-desc" style="margin-bottom:0;">每一個作品背後，都是對品牌與用戶的深刻理解。</p>
+        </div>
+      </div>
+      <div class="portfolio-grid">
+        <div class="glass-card portfolio-card">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-glow"></div>
+            <div class="portfolio-thumb-inner">NOVA</div>
+            <span class="portfolio-thumb-badge">品牌識別</span>
+          </div>
+          <div class="portfolio-body">
+            <h3>NOVA SaaS 品牌重塑</h3>
+            <p>為 B2B SaaS 新創重塑品牌形象，建立完整設計系統，提升品牌識別度 40%。</p>
+            <div class="portfolio-tags">
+              <span class="ptag">Brand Identity</span>
+              <span class="ptag">Design System</span>
+              <span class="ptag">Figma</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card portfolio-card">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-glow"></div>
+            <div class="portfolio-thumb-inner">PULSE</div>
+            <span class="portfolio-thumb-badge">網站開發</span>
+          </div>
+          <div class="portfolio-body">
+            <h3>Pulse 電商平台</h3>
+            <p>從 0 到 1 打造電商平台，優化結帳流程後轉換率提升 28%，跳出率降低 35%。</p>
+            <div class="portfolio-tags">
+              <span class="ptag">Next.js</span>
+              <span class="ptag">UI/UX</span>
+              <span class="ptag">E-commerce</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card portfolio-card">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-glow"></div>
+            <div class="portfolio-thumb-inner">ARC</div>
+            <span class="portfolio-thumb-badge">Landing Page</span>
+          </div>
+          <div class="portfolio-body">
+            <h3>Arc Finance Landing Page</h3>
+            <p>金融科技公司官網重設計，結合信任感與科技感，訪客停留時間增加 2.3 倍。</p>
+            <div class="portfolio-tags">
+              <span class="ptag">Landing Page</span>
+              <span class="ptag">Fintech</span>
+              <span class="ptag">Animation</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card portfolio-card">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-glow"></div>
+            <div class="portfolio-thumb-inner">LUMI</div>
+            <span class="portfolio-thumb-badge">UI/UX</span>
+          </div>
+          <div class="portfolio-body">
+            <h3>Lumi 健康 App 介面</h3>
+            <p>醫療健康類 App 的 UX 研究與介面重設計，用戶完成任務時間縮短 45%。</p>
+            <div class="portfolio-tags">
+              <span class="ptag">Mobile UX</span>
+              <span class="ptag">Healthcare</span>
+              <span class="ptag">Prototyping</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card portfolio-card">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-glow"></div>
+            <div class="portfolio-thumb-inner">ECHO</div>
+            <span class="portfolio-thumb-badge">設計系統</span>
+          </div>
+          <div class="portfolio-body">
+            <h3>Echo Design System</h3>
+            <p>為 50 人工程團隊建立統一設計系統，元件庫涵蓋 200+ 個元件，開發效率提升 60%。</p>
+            <div class="portfolio-tags">
+              <span class="ptag">Design System</span>
+              <span class="ptag">React</span>
+              <span class="ptag">Storybook</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card portfolio-card">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-glow"></div>
+            <div class="portfolio-thumb-inner">FORM</div>
+            <span class="portfolio-thumb-badge">SEO</span>
+          </div>
+          <div class="portfolio-body">
+            <h3>Form Studio SEO 專案</h3>
+            <p>室內設計工作室的 SEO 全面優化，六個月內自然搜尋流量成長 180%。</p>
+            <div class="portfolio-tags">
+              <span class="ptag">SEO</span>
+              <span class="ptag">Content Strategy</span>
+              <span class="ptag">Analytics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="section-divider">
+    <div class="container">
+      <div style="text-align:center; max-width:560px; margin:0 auto 3rem;">
+        <div class="section-label">Testimonials</div>
+        <h2 class="section-title">客戶怎麼說</h2>
+        <p style="color:var(--color-text-subtle); font-size:1rem; line-height:1.75;">98% 的客戶在合作結束後選擇繼續長期合作。</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="glass-card testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>「合作過最專業的設計團隊。他們不只是在做設計，而是真正理解我們的業務目標，提供的建議都非常有洞察力。」</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">J</div>
+            <div>
+              <div class="author-name">Jason Lin</div>
+              <div class="author-role">CEO, NOVA Technologies</div>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>「網站上線後一個月，詢問量就成長了兩倍。設計不只好看，更重要的是真的有在轉換，這才是我最在意的。」</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">S</div>
+            <div>
+              <div class="author-name">Sarah Chen</div>
+              <div class="author-role">Marketing Director, Pulse</div>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card testimonial-card">
+          <div class="stars">★★★★★</div>
+          <blockquote>「溝通效率極高，每個環節都很透明。設計稿交付品質遠超預期，而且完全在時程內完成，強烈推薦。」</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">M</div>
+            <div>
+              <div class="author-name">Michael Wu</div>
+              <div class="author-role">Founder, Arc Finance</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section-divider">
+    <div class="container">
+      <div style="text-align:center; max-width:560px; margin:0 auto 3rem;">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">常見問題</h2>
+        <p style="color:var(--color-text-subtle); font-size:1rem; line-height:1.75;">有其他問題？歡迎<a href="contact.html" style="color:var(--color-accent); text-decoration:none;">直接聯絡我們</a>。</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            一個專案大概要多少費用？
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <div class="faq-answer">專案費用依規模與需求而異。Landing Page 設計通常從 NT$30,000 起，完整品牌識別與網站開發則從 NT$100,000 起。我們提供免費諮詢，可根據你的需求提供透明報價。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            專案通常需要多長時間完成？
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <div class="faq-answer">Landing Page 約 2-3 週，完整網站設計與開發約 6-10 週，品牌識別專案約 4-6 週。時程會依據需求複雜度和雙方回饋速度調整，我們會在提案時給出詳細時程規劃。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            合作過程中如何溝通與確認進度？
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <div class="faq-answer">我們使用 Notion 管理專案進度，你可以隨時查看任務狀態。每個里程碑完成後會提供設計預覽，並安排視訊會議確認方向。所有回饋都集中在 Figma 留言，確保溝通高效透明。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            完成後提供哪些交付物？
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <div class="faq-answer">設計專案交付：Figma 設計稿（含設計系統）、各尺寸切圖素材、品牌規範手冊。開發專案另外交付：完整原始碼、部署上線、操作說明文件，以及 30 天免費維護支援。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            可以提供長期維護服務嗎？
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <div class="faq-answer">可以。我們提供月費制的維護方案，包含內容更新、效能監控、安全性維護，以及每月設計微調服務。許多客戶在專案完成後選擇繼續長期合作。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="section-divider">
+    <div class="container">
+      <div class="glass-card cta-banner">
+        <div class="cta-banner-glow"></div>
+        <h2>準備好開始<br /><span class="highlight">你的下一個專案了嗎？</span></h2>
+        <p>現在填寫諮詢表單，工作日 24 小時內回覆，免費提供方案建議與初步報價。</p>
+        <div class="cta-buttons">
+          <a href="contact.html" class="btn-primary">
+            <span class="material-symbols-outlined" style="font-size:1rem;">mail</span>
+            開始諮詢
+          </a>
+          <a href="about.html" class="btn-ghost">了解我們</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-logo">Design<span>.</span></a>
+        <ul class="footer-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <span class="footer-copy">© 2026 DesignAgency. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
 </html>
